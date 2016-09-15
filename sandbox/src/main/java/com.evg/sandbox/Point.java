@@ -1,3 +1,5 @@
+package com.evg.sandbox;
+
 /**
  * Created by evg on 11.09.16.
  */
@@ -28,7 +30,7 @@ public class Point {
 
     @Override
     public String toString() {
-        return "Point(" +
+        return "com.evg.sandbox.Point(" +
                 "x = " + x +
                 ", y = " + y +
                 ')';

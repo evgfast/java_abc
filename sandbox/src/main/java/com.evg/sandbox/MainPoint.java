@@ -1,8 +1,9 @@
+package com.evg.sandbox;
 
 /**
  * Created by evg on 11.09.16.
  */
-public class TestPoint {
+public class MainPoint {
     // It calculates the distance between two point.
     public static double distance(Point p1, Point p2){
         double x1 = p1.getX();
@@ -19,13 +20,13 @@ public class TestPoint {
     }
 
     public static void main(String[] args) {
-        Point point_one = new Point(20.0, 10.0);
-        Point point_two = new Point(65.0, 50.0);
-        System.out.println("Method 'distance' from TestPoint class");
-        System.out.println(String.format("%4.5f", TestPoint.distance(point_one, point_two)));
+        Point point_one = new Point(10.0, 3.0);
+        Point point_two = new Point(6.0, 6.0);
+        System.out.println("Method 'distance' from com.evg.sandbox.TestPoint class");
+        System.out.println(String.format("%4.5f", MainPoint.distance(point_one, point_two)));
 
         System.out.println();
-        System.out.println("Method 'distance' from Point class");
+        System.out.println("Method 'distance' from com.evg.sandbox.Point class");
         System.out.println(String.format("%4.5f", point_one.distance(point_two)));
     }
 }
