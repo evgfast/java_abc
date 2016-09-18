@@ -21,10 +21,10 @@ public class GroupCreationTests {
     @Test
     public void testsGroupCreation() {
         wd.get("http://192.168.1.34/addressbook/");
-        login();
+        login("admin", "secret");
         gotoToGroupPage();
         initGroupCreation();
-        fillGroupForm();
+        fillGroupForm(new GroupData("group_name", "group header", "group comment"));
         submitForm();
         backGroupPage();
     }
@@ -37,16 +37,16 @@ public class GroupCreationTests {
         wd.findElement(By.name("submit")).click();
     }
 
-    private void fillGroupForm() {
+    private void fillGroupForm(GroupData groupData) {
         wd.findElement(By.name("group_name")).click();
         wd.findElement(By.name("group_name")).clear();
-        wd.findElement(By.name("group_name")).sendKeys("group_name");
+        wd.findElement(By.name("group_name")).sendKeys(groupData.getName());
         wd.findElement(By.name("group_header")).click();
         wd.findElement(By.name("group_header")).clear();
-        wd.findElement(By.name("group_header")).sendKeys("group header");
+        wd.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
         wd.findElement(By.name("group_footer")).click();
         wd.findElement(By.name("group_footer")).clear();
-        wd.findElement(By.name("group_footer")).sendKeys("group comment");
+        wd.findElement(By.name("group_footer")).sendKeys(groupData.getComment());
     }
 
     private void initGroupCreation() {
@@ -57,14 +57,14 @@ public class GroupCreationTests {
         wd.findElement(By.linkText("groups")).click();
     }
 
-    private void login() {
+    private void login(String username, String password) {
         wd.findElement(By.id("LoginForm")).click();
         wd.findElement(By.name("user")).click();
         wd.findElement(By.name("user")).clear();
-        wd.findElement(By.name("user")).sendKeys("admin");
+        wd.findElement(By.name("user")).sendKeys(username);
         wd.findElement(By.name("pass")).click();
         wd.findElement(By.name("pass")).clear();
-        wd.findElement(By.name("pass")).sendKeys("secret");
+        wd.findElement(By.name("pass")).sendKeys(password);
         wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
     }
 
