@@ -1,6 +1,8 @@
-package com.hw.addressbook;
+package com.hw.addressbook.model;
 
-public class UserData {
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class  AddressBookEntry {
     private final String firstname;
     private final String middlename;
     private final String lastname;
@@ -12,7 +14,7 @@ public class UserData {
     private final String phoneWork;
     private final String email;
 
-    public UserData(String firstname, String middlename, String lastname, String nickname, String company,
+    public AddressBookEntry(String firstname, String middlename, String lastname, String nickname, String company,
                     String address, String phoneHome, String mobile, String phoneWork, String email) {
         this.firstname = firstname;
         this.middlename = middlename;
@@ -25,6 +27,8 @@ public class UserData {
         this.phoneWork = phoneWork;
         this.email = email;
     }
+
+
 
     public String getFirstname() {
         return firstname;
