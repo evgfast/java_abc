@@ -16,12 +16,13 @@ public class GroupCreationTests {
     public void setUp() throws Exception {
         wd = new FirefoxDriver();
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        wd.get("http://192.168.1.34/addressbook/");
+        login("admin", "secret");
     }
     
     @Test
     public void testsGroupCreation() {
-        wd.get("http://192.168.1.34/addressbook/");
-        login("admin", "secret");
+
         gotoToGroupPage();
         initGroupCreation();
         fillGroupForm(new GroupData("group_name", "group header", "group comment"));
