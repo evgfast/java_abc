@@ -33,4 +33,14 @@ public class AddressBookEntryHelper extends HelperBase{
     public void initAddressBookEntryCreation() {
         click(By.linkText("add new"));
     }
+
+    public void selectFirstUser(){
+        clickCheckbox(By.xpath("//tr[@name][1]//input"));
+    }
+
+    public void initUserDeletion(){
+        click(By.xpath("//input[@value=\"Delete\"]"));
+        wd.switchTo().alert().accept();
+    }
+
 }
