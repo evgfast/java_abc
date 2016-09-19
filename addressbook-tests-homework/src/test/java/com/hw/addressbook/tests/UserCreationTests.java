@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 public class UserCreationTests extends TestBase {
     @Test
     public void testsUserCreation() {
+        app.getNavigationHelper().gotoToHomePage();
         app.getAddressBookEntryHelper().initAddressBookEntryCreation();
         AddressBookEntry user = new AddressBookEntry(
                 "Evgeniy", "Olegovich", "Shestopalov",

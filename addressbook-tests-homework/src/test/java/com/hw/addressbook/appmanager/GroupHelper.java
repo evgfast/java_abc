@@ -30,12 +30,20 @@ public class GroupHelper extends HelperBase {
         click(By.name("submit"));
     }
 
-    public void selectFirstGroup(){
+    public void selectFirstGroup() {
         clickCheckbox(By.xpath("//hr/following-sibling::span[1]/input"));
     }
 
-    public void initGroupDeletion(){
+    public void initGroupDeletion() {
         click(By.xpath("//input[@name=\"delete\"][1]"));
+    }
+
+    public void initGroupModification() {
+        click(By.xpath("//input[@name=\"edit\"][1]"));
+    }
+
+    public void updateGroupModification(){
+        click(By.xpath("//input[@value=\"Update\"]"));
     }
 
 }

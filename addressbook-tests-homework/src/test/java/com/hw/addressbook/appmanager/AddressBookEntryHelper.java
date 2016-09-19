@@ -43,4 +43,12 @@ public class AddressBookEntryHelper extends HelperBase{
         wd.switchTo().alert().accept();
     }
 
+    public void initFirstUserModification(){
+        click(By.xpath("//tr[@name][1]//img[@alt=\"Edit\"]"));
+    }
+
+    public void updateUser(){
+        click(By.xpath("//input[@value=\"Update\"][1]"));
+    }
+
 }
