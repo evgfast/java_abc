@@ -2,6 +2,7 @@ package com.hw.addressbook.appmanager;
 
 import com.hw.addressbook.model.AddressBookEntry;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
@@ -9,7 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
  */
 public class AddressBookEntryHelper extends HelperBase{
 
-    public AddressBookEntryHelper(FirefoxDriver wd) {
+    public AddressBookEntryHelper(WebDriver wd) {
         super(wd);
     }
 

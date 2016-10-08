@@ -2,13 +2,14 @@ package com.hw.addressbook.appmanager;
 
 import com.hw.addressbook.model.GroupData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Created by evg on 18.09.16.
  */
 public class GroupHelper extends HelperBase {
-    public GroupHelper(FirefoxDriver wd) {
+    public GroupHelper(WebDriver wd) {
         super(wd);
     }
 
