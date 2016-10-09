@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -24,9 +25,9 @@ public class ApplicationManager {
     }
 
     public void init() {
-        if(browser == BrowserType.FIREFOX){
+        if(browser.equals(BrowserType.FIREFOX)){
             wd = new FirefoxDriver();
-        } else if (browser == BrowserType.CHROME){
+        } else if (browser.equals(BrowserType.CHROME)){
             System.setProperty("webdriver.chrome.driver", "/home/evg/project/driver/chromedriver");
             wd = new ChromeDriver();
         }
