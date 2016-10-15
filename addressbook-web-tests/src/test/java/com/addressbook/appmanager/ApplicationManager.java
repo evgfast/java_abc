@@ -17,6 +17,7 @@ public class ApplicationManager {
     private GroupHelper groupHelper;
     private SessionHelper sessionHelper;
     private String browser;
+    private AddressBookEntryHelper addressBookEntryHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -35,6 +36,7 @@ public class ApplicationManager {
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
+        addressBookEntryHelper = new AddressBookEntryHelper(wd);
         sessionHelper.login("admin", "secret");
     }
 
@@ -42,11 +44,19 @@ public class ApplicationManager {
         wd.quit();
     }
 
-    public GroupHelper getGroupHelper() {
-        return groupHelper;
-    }
-
     public NavigationHelper getNavigationHelper() {
         return navigationHelper;
+    }
+
+    public AddressBookEntryHelper getAddressBookEntryHelper() {
+        return addressBookEntryHelper;
+    }
+
+    public SessionHelper getSessionHelper() {
+        return sessionHelper;
+    }
+
+    public GroupHelper getGroupHelper() {
+        return groupHelper;
     }
 }

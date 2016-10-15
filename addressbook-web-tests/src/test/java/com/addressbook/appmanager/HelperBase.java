@@ -3,7 +3,6 @@ package com.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Created by evg on 17.09.16.
@@ -30,6 +29,12 @@ public class HelperBase {
         }
     }
 
+
+    protected void clickCheckbox(By locator) {
+        if (!wd.findElement(locator).isSelected()) {
+            wd.findElement(locator).click();
+        }
+    }
     public boolean isAlertPresent() {
         try {
             wd.switchTo().alert();

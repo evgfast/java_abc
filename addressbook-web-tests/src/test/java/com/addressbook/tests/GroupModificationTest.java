@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class GroupModificationTest extends TestBase {
     @Test
     public void testGroupModification(){
-        app.getNavigationHelper().gotoGroupPage();
+        app.getNavigationHelper().gotoToGroupPage();
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().initGroupModification();
         app.getGroupHelper().fillGroupForm(new GroupData("modification", "group header", "test33"));
