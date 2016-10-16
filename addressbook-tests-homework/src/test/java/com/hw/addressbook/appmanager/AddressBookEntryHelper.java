@@ -38,7 +38,7 @@ public class AddressBookEntryHelper extends HelperBase{
         type(By.name("email"), addressBookEntry.getEmail());
 
         if(creation){
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressBookEntry.getGroup());
+            new Select(wd.findElement(By.name("new_group"))).selectByIndex(1);
         } else{
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
@@ -65,4 +65,18 @@ public class AddressBookEntryHelper extends HelperBase{
         click(By.xpath("//input[@value=\"Update\"][1]"));
     }
 
+    public void backHomePage() {
+        click(By.linkText("home page"));
+    }
+
+    public void createContact(AddressBookEntry contact) {
+        initAddressBookEntryCreation();
+        fillAddressBookEntryForm(contact, true);
+        submitAddressBookEntryForm();
+        backHomePage();
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.xpath("//tr[@name][1]//input"));
+    }
 }
