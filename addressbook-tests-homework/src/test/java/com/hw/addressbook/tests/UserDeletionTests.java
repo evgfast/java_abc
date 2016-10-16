@@ -10,5 +10,4 @@ public class UserDeletionTests extends TestBase {
         app.getAddressBookEntryHelper().selectFirstUser();
         app.getAddressBookEntryHelper().initUserDeletion();
     }
-
 }

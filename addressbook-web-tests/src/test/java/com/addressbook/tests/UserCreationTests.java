@@ -11,9 +11,10 @@ public class UserCreationTests extends TestBase {
         AddressBookEntry user = new AddressBookEntry(
                 "Evgeniy", "Olegovich", "Shestopalov",
                 "evg", "Inc", "Saratov 64", "555555",
-                "898783245", "6666", "evg@gmail.com"
+                "898783245", "6666", "evg@gmail.com",
+                "gt_group_name"
         );
-        app.getAddressBookEntryHelper().fillAddressBookEntryForm(user);
+        app.getAddressBookEntryHelper().fillAddressBookEntryForm(user, true);
         app.getAddressBookEntryHelper().submitAddressBookEntryForm();
     }
 }

@@ -2,8 +2,11 @@ package com.hw.addressbook.appmanager;
 
 import com.hw.addressbook.model.AddressBookEntry;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 /**
  * Created by evg on 18.09.16.
@@ -18,7 +21,11 @@ public class AddressBookEntryHelper extends HelperBase{
         click(By.xpath("//input[@type=\"submit\"][1]"));
     }
 
-    public void fillAddressBookEntryForm(AddressBookEntry addressBookEntry) {
+    /*
+    addressBookEntry is object of contact
+    creation is flag, if you will want create new contact should be equals TRUE
+     */
+    public void fillAddressBookEntryForm(AddressBookEntry addressBookEntry, boolean creation) {
         type(By.name("firstname"), addressBookEntry.getFirstname());
         type(By.name("middlename"), addressBookEntry.getMiddlename());
         type(By.name("lastname"), addressBookEntry.getLastname());
@@ -29,6 +36,12 @@ public class AddressBookEntryHelper extends HelperBase{
         type(By.name("mobile"), addressBookEntry.getMobile());
         type(By.name("work"), addressBookEntry.getPhoneWork());
         type(By.name("email"), addressBookEntry.getEmail());
+
+        if(creation){
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressBookEntry.getGroup());
+        } else{
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 
     public void initAddressBookEntryCreation() {

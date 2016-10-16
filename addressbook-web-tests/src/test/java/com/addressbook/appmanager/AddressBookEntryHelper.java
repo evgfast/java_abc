@@ -2,7 +2,10 @@ package com.addressbook.appmanager;
 
 import com.addressbook.model.AddressBookEntry;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 /**
  * Created by evg on 18.09.16.
@@ -17,7 +20,7 @@ public class AddressBookEntryHelper extends HelperBase{
         click(By.xpath("//input[@type=\"submit\"][1]"));
     }
 
-    public void fillAddressBookEntryForm(AddressBookEntry addressBookEntry) {
+    public void fillAddressBookEntryForm(AddressBookEntry addressBookEntry, boolean creation) {
         type(By.name("firstname"), addressBookEntry.getFirstname());
         type(By.name("middlename"), addressBookEntry.getMiddlename());
         type(By.name("lastname"), addressBookEntry.getLastname());
@@ -28,6 +31,12 @@ public class AddressBookEntryHelper extends HelperBase{
         type(By.name("mobile"), addressBookEntry.getMobile());
         type(By.name("work"), addressBookEntry.getPhoneWork());
         type(By.name("email"), addressBookEntry.getEmail());
+
+        if(creation){
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressBookEntry.getGroup());
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 
     public void initAddressBookEntryCreation() {

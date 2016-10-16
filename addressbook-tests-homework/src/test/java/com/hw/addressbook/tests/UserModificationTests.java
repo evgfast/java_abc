@@ -14,9 +14,10 @@ public class UserModificationTests extends TestBase {
         AddressBookEntry user_mod = new AddressBookEntry(
                 "Name_modification", "Olegovich_modification", "Shestopalov_modification",
                 "evg_modification", "Inc_modification", "Saratov 64_modification", "555555",
-                "00000000", "99999999", "evgmodification@gmail.ru"
+                "00000000", "99999999", "evgmodification@gmail.ru",
+                null
         );
-        app.getAddressBookEntryHelper().fillAddressBookEntryForm(user_mod);
+        app.getAddressBookEntryHelper().fillAddressBookEntryForm(user_mod, false);
         app.getAddressBookEntryHelper().updateUser();
 
     }

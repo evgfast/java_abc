@@ -47,4 +47,14 @@ public class GroupHelper extends HelperBase {
         click(By.xpath("//input[@value=\"Update\"]"));
     }
 
+    public void createGroup(GroupData group) {
+       initGroupCreation();
+       fillGroupForm(group);
+       submitForm();
+       backGroupPage();
+    }
+
+    public boolean isThereAGroup() {
+        return isElementPresent(By.xpath("//hr/following-sibling::span[1]/input"));
+    }
 }

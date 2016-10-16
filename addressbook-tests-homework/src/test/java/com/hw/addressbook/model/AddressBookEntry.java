@@ -13,9 +13,11 @@ public class  AddressBookEntry {
     private final String mobile;
     private final String phoneWork;
     private final String email;
+    private String group;
 
     public AddressBookEntry(String firstname, String middlename, String lastname, String nickname, String company,
-                    String address, String phoneHome, String mobile, String phoneWork, String email) {
+                            String address, String phoneHome, String mobile,
+                            String phoneWork, String email, String group) {
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
@@ -26,6 +28,7 @@ public class  AddressBookEntry {
         this.mobile = mobile;
         this.phoneWork = phoneWork;
         this.email = email;
+        this.group = group;
     }
 
 
@@ -68,5 +71,13 @@ public class  AddressBookEntry {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 }
