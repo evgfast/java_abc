@@ -28,7 +28,7 @@ public class UserModificationTests extends TestBase {
             );
             app.getAddressBookEntryHelper().createContact(user);
         }
-        app.getAddressBookEntryHelper().initFirstUserModification();
+        app.getAddressBookEntryHelper().initFirstUserModification(before - 1);
         app.getAddressBookEntryHelper().fillAddressBookEntryForm(user_mod, false);
         app.getAddressBookEntryHelper().updateUser();
         app.getAddressBookEntryHelper().backHomePage();

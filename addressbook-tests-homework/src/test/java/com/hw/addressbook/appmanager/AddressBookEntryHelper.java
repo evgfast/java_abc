@@ -57,8 +57,9 @@ public class AddressBookEntryHelper extends HelperBase{
         wd.switchTo().alert().accept();
     }
 
-    public void initFirstUserModification(){
-        click(By.xpath("//tr[@name][1]//img[@alt=\"Edit\"]"));
+    public void initFirstUserModification(int index){
+//        click(By.xpath("//tr[@name][1]//img[@alt=\"Edit\"]"));
+        wd.findElements(By.xpath("//img[@alt=\"Edit\"]")).get(index).click();
     }
 
     public void updateUser(){
@@ -82,5 +83,9 @@ public class AddressBookEntryHelper extends HelperBase{
 
     public int getContactCount() {
         return wd.findElements(By.name("selected[]")).size();
+    }
+
+    public void selectContact(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 }

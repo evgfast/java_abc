@@ -19,7 +19,7 @@ public class UserDeletionTests extends TestBase {
         if (! app.getAddressBookEntryHelper().isThereAContact()){
             app.getAddressBookEntryHelper().createContact(user);
         }
-        app.getAddressBookEntryHelper().selectFirstUser();
+        app.getAddressBookEntryHelper().selectContact(before - 1);
         app.getAddressBookEntryHelper().initUserDeletion();
         app.getAddressBookEntryHelper().backHomePage();
         int after = app.getAddressBookEntryHelper().getContactCount();
