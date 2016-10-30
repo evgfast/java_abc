@@ -2,12 +2,14 @@ package com.hw.addressbook.tests;
 
 import com.hw.addressbook.model.AddressBookEntry;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class UserDeletionTests extends TestBase {
     @Test
     public void testsUserDeletion() {
         app.getNavigationHelper().gotoToHomePage();
+        int before = app.getAddressBookEntryHelper().getContactCount();
         AddressBookEntry user = new AddressBookEntry(
                 "Evgen", "Oleg", "Shestopalov",
                 "evg", "Inc", "Saratov 64", "555555",
@@ -19,5 +21,8 @@ public class UserDeletionTests extends TestBase {
         }
         app.getAddressBookEntryHelper().selectFirstUser();
         app.getAddressBookEntryHelper().initUserDeletion();
+        app.getAddressBookEntryHelper().backHomePage();
+        int after = app.getAddressBookEntryHelper().getContactCount();
+        Assert.assertEquals(after, before - 1);
     }
 }

@@ -66,7 +66,7 @@ public class AddressBookEntryHelper extends HelperBase{
     }
 
     public void backHomePage() {
-        click(By.linkText("home page"));
+        click(By.linkText("home"));
     }
 
     public void createContact(AddressBookEntry contact) {
@@ -78,5 +78,9 @@ public class AddressBookEntryHelper extends HelperBase{
 
     public boolean isThereAContact() {
         return isElementPresent(By.xpath("//tr[@name][1]//input"));
+    }
+
+    public int getContactCount() {
+        return wd.findElements(By.name("selected[]")).size();
     }
 }
