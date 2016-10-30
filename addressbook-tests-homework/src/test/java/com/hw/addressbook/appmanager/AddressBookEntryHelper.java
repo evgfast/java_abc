@@ -104,4 +104,5 @@ public class AddressBookEntryHelper extends HelperBase{
         }
         return contacts;
     }
+
 }

@@ -28,5 +28,9 @@ public class UserDeletionTests extends TestBase {
 
         List<AddressBookEntry> after = app.getAddressBookEntryHelper().getContactList();
         Assert.assertEquals(after.size(), before.size() - 1);
+
+        before.remove(before.size() - 1);
+        Assert.assertEquals(before, after);
+
     }
 }
