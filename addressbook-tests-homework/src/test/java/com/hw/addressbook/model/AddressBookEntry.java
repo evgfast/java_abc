@@ -15,6 +15,20 @@ public class  AddressBookEntry {
     private final String email;
     private String group;
 
+    public AddressBookEntry(String firstname, String lastname){
+        this.firstname = firstname;
+        this.middlename = "";
+        this.lastname = lastname;
+        this.nickname = "";
+        this.company = "";
+        this.address = "";
+        this.phoneHome = "";
+        this.mobile = "";
+        this.phoneWork = "";
+        this.email = "";
+        this.group = "";
+    }
+
     public AddressBookEntry(String firstname, String middlename, String lastname, String nickname, String company,
                             String address, String phoneHome, String mobile,
                             String phoneWork, String email, String group) {

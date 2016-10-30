@@ -5,11 +5,14 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class UserDeletionTests extends TestBase {
     @Test
     public void testsUserDeletion() {
         app.getNavigationHelper().gotoToHomePage();
-        int before = app.getAddressBookEntryHelper().getContactCount();
+        List<AddressBookEntry> before = app.getAddressBookEntryHelper().getContactList();
+
         AddressBookEntry user = new AddressBookEntry(
                 "Evgen", "Oleg", "Shestopalov",
                 "evg", "Inc", "Saratov 64", "555555",
@@ -19,10 +22,11 @@ public class UserDeletionTests extends TestBase {
         if (! app.getAddressBookEntryHelper().isThereAContact()){
             app.getAddressBookEntryHelper().createContact(user);
         }
-        app.getAddressBookEntryHelper().selectContact(before - 1);
+        app.getAddressBookEntryHelper().selectContact(before.size() - 1);
         app.getAddressBookEntryHelper().initUserDeletion();
         app.getAddressBookEntryHelper().backHomePage();
-        int after = app.getAddressBookEntryHelper().getContactCount();
-        Assert.assertEquals(after, before - 1);
+
+        List<AddressBookEntry> after = app.getAddressBookEntryHelper().getContactList();
+        Assert.assertEquals(after.size(), before.size() - 1);
     }
 }

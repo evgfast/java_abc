@@ -4,9 +4,13 @@ import com.hw.addressbook.model.AddressBookEntry;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by evg on 18.09.16.
@@ -87,5 +91,17 @@ public class AddressBookEntryHelper extends HelperBase{
 
     public void selectContact(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
+    }
+
+    public List<AddressBookEntry> getContactList() {
+        List<AddressBookEntry> contacts = new ArrayList<AddressBookEntry>();
+        List<WebElement> elements = wd.findElements(By.cssSelector("tr[class]"));
+        for(WebElement element : elements){
+            String last_name = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
+            String first_name = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
+            AddressBookEntry user = new AddressBookEntry(first_name, last_name);
+            contacts.add(user);
+        }
+        return contacts;
     }
 }

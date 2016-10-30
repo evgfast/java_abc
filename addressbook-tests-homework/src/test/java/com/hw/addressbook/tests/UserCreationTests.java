@@ -4,11 +4,13 @@ import com.hw.addressbook.model.AddressBookEntry;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class UserCreationTests extends TestBase {
     @Test
     public void testsUserCreation() {
         app.getNavigationHelper().gotoToHomePage();
-        int before = app.getAddressBookEntryHelper().getContactCount();
+        List<AddressBookEntry> before = app.getAddressBookEntryHelper().getContactList();
         AddressBookEntry user = new AddressBookEntry(
                 "Evgeniy", "Olegovich", "Shestopalov",
                 "evg", "Inc", "Saratov 64", "555555",
@@ -16,7 +18,7 @@ public class UserCreationTests extends TestBase {
                 "gt_group_name"
         );
         app.getAddressBookEntryHelper().createContact(user);
-        int after = app.getAddressBookEntryHelper().getContactCount();
-        Assert.assertEquals(after, before +1);
+        List<AddressBookEntry> after = app.getAddressBookEntryHelper().getContactList();
+        Assert.assertEquals(after.size(), before.size() +1);
     }
 }
