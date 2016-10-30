@@ -99,7 +99,8 @@ public class AddressBookEntryHelper extends HelperBase{
         for(WebElement element : elements){
             String last_name = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
             String first_name = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
-            AddressBookEntry user = new AddressBookEntry(first_name, last_name);
+            int id = Integer.parseInt(element.findElement(By.cssSelector("td:nth-child(1) input")).getAttribute("value"));
+            AddressBookEntry user = new AddressBookEntry(id, first_name, last_name);
             contacts.add(user);
         }
         return contacts;

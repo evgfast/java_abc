@@ -14,6 +14,7 @@ public class UserDeletionTests extends TestBase {
         List<AddressBookEntry> before = app.getAddressBookEntryHelper().getContactList();
 
         AddressBookEntry user = new AddressBookEntry(
+                before.get(before.size() - 1).getId(),
                 "Evgen", "Oleg", "Shestopalov",
                 "evg", "Inc", "Saratov 64", "555555",
                 "898783245", "6666", "evg@gmail.com",

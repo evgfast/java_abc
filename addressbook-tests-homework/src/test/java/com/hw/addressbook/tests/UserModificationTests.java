@@ -4,6 +4,7 @@ import com.hw.addressbook.model.AddressBookEntry;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ public class UserModificationTests extends TestBase {
         app.getNavigationHelper().gotoToHomePage();
         List<AddressBookEntry> before = app.getAddressBookEntryHelper().getContactList();
         AddressBookEntry user_mod = new AddressBookEntry(
+                before.get(before.size() - 1).getId(),
                 "Name_modification", "Olegovich_modification", "Shestopalov_modification",
                 "evg_modification", "Inc_modification", "Saratov 64_modification", "555555",
                 "00000000", "99999999", "evgmodification@gmail.ru",
@@ -23,6 +25,7 @@ public class UserModificationTests extends TestBase {
 
         if (! app.getAddressBookEntryHelper().isThereAContact()){
             AddressBookEntry user = new AddressBookEntry(
+                    before.get(before.size() - 1).getId(),
                     "Evgen", "Oleg", "Shestopalov",
                     "evg", "Inc", "Saratov 64", "555555",
                     "898783245", "6666", "evg@gmail.com",
@@ -37,5 +40,10 @@ public class UserModificationTests extends TestBase {
         List<AddressBookEntry> after = app.getAddressBookEntryHelper().getContactList();
 
         Assert.assertEquals(after.size(), before.size());
+
+        before.remove(before.size() - 1);
+        before.add(user_mod);
+
+        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
     }
 }

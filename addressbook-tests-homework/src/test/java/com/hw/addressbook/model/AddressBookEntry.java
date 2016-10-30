@@ -3,6 +3,7 @@ package com.hw.addressbook.model;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class  AddressBookEntry {
+    private int id;
     private final String firstname;
     private final String middlename;
     private final String lastname;
@@ -15,7 +16,8 @@ public class  AddressBookEntry {
     private final String email;
     private String group;
 
-    public AddressBookEntry(String firstname, String lastname){
+    public AddressBookEntry(int id, String firstname, String lastname){
+        this.id = id;
         this.firstname = firstname;
         this.middlename = "";
         this.lastname = lastname;
@@ -29,9 +31,10 @@ public class  AddressBookEntry {
         this.group = "";
     }
 
-    public AddressBookEntry(String firstname, String middlename, String lastname, String nickname, String company,
+    public AddressBookEntry(int id, String firstname, String middlename, String lastname, String nickname, String company,
                             String address, String phoneHome, String mobile,
                             String phoneWork, String email, String group) {
+        this.id = id;
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
@@ -45,7 +48,13 @@ public class  AddressBookEntry {
         this.group = group;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFirstname() {
         return firstname;
@@ -98,7 +107,8 @@ public class  AddressBookEntry {
     @Override
     public String toString() {
         return "AddressBookEntry{" +
-                "firstname='" + firstname + '\'' +
+                "id='" + id + '\'' +
+                ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 '}';
     }
@@ -110,6 +120,7 @@ public class  AddressBookEntry {
 
         AddressBookEntry that = (AddressBookEntry) o;
 
+        if (id != that.id) return false;
         if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
         return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
 
@@ -117,7 +128,8 @@ public class  AddressBookEntry {
 
     @Override
     public int hashCode() {
-        int result = firstname != null ? firstname.hashCode() : 0;
+        int result = id;
+        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         return result;
     }
