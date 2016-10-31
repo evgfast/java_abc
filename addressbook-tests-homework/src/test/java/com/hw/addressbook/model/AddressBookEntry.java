@@ -120,7 +120,6 @@ public class  AddressBookEntry {
 
         AddressBookEntry that = (AddressBookEntry) o;
 
-        if (id != that.id) return false;
         if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
         return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
 
@@ -128,8 +127,7 @@ public class  AddressBookEntry {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+        int result = firstname != null ? firstname.hashCode() : 0;
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         return result;
     }
