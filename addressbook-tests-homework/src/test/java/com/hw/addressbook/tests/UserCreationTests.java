@@ -22,14 +22,8 @@ public class UserCreationTests extends TestBase {
         app.getAddressBookEntryHelper().createContact(user);
         List<AddressBookEntry> after = app.getAddressBookEntryHelper().getContactList();
         Assert.assertEquals(after.size(), before.size() +1);
-
+        int max = after.stream().max( ((o1, o2) -> Integer.compare(o1.getId(), o2.getId()))).get().getId();
         before.add(user);
-        int max = 0;
-        for(AddressBookEntry a : after ) {
-            if (a.getId() > max) {
-                max = a.getId();
-            }
-        }
         user.setId(max);
         Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
     }
