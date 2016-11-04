@@ -48,6 +48,23 @@ public class  AddressBookEntry {
         this.group = group;
     }
 
+    public AddressBookEntry( String firstname, String middlename, String lastname, String nickname, String company,
+                            String address, String phoneHome, String mobile,
+                            String phoneWork, String email, String group) {
+        this.id = Integer.MAX_VALUE;;
+        this.firstname = firstname;
+        this.middlename = middlename;
+        this.lastname = lastname;
+        this.nickname = nickname;
+        this.company = company;
+        this.address = address;
+        this.phoneHome = phoneHome;
+        this.mobile = mobile;
+        this.phoneWork = phoneWork;
+        this.email = email;
+        this.group = group;
+    }
+
     public int getId() {
         return id;
     }

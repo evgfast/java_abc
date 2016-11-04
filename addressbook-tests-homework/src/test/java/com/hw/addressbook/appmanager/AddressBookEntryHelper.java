@@ -106,4 +106,11 @@ public class AddressBookEntryHelper extends HelperBase{
         return contacts;
     }
 
+    public void modifyContact(int index, AddressBookEntry user_mod) {
+        initFirstUserModification(index);
+        fillAddressBookEntryForm(user_mod, false);
+        updateUser();
+        backHomePage();
+    }
+
 }

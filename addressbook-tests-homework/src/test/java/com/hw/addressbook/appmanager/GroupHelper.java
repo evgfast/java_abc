@@ -57,6 +57,13 @@ public class GroupHelper extends HelperBase {
        submitForm();
        backGroupPage();
     }
+    public void modifyGroup(int index, GroupData group) {
+        selectGroup(index);
+        initGroupModification();
+        fillGroupForm(group);
+        updateGroupModification();
+        backGroupPage();
+    }
 
     public boolean isThereAGroup() {
         return isElementPresent(By.xpath("//hr/following-sibling::span[1]/input"));

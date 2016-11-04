@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class UserCreationTests extends TestBase {
-    @Test
+    @Test(enabled = true)
     public void testsUserCreation() {
         app.getNavigationHelper().gotoToHomePage();
         List<AddressBookEntry> before = app.getAddressBookEntryHelper().getContactList();
