@@ -10,8 +10,8 @@ import java.util.List;
 public class UserCreationTests extends TestBase {
     @Test(enabled = true)
     public void testsUserCreation() {
-        app.getNavigationHelper().gotoToHomePage();
-        List<AddressBookEntry> before = app.getAddressBookEntryHelper().getContactList();
+        app.goTo().homePage();
+        List<AddressBookEntry> before = app.contact().list();
         AddressBookEntry user = new AddressBookEntry(
                 before.get(before.size() - 1).getId(),
                 "Evgeniy", "Olegovich", "Shestopalov",
@@ -19,8 +19,8 @@ public class UserCreationTests extends TestBase {
                 "898783245", "6666", "evg@gmail.com",
                 "gt_group_name"
         );
-        app.getAddressBookEntryHelper().createContact(user);
-        List<AddressBookEntry> after = app.getAddressBookEntryHelper().getContactList();
+        app.contact().create(user);
+        List<AddressBookEntry> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size() +1);
         int max = after.stream().max( ((o1, o2) -> Integer.compare(o1.getId(), o2.getId()))).get().getId();
         before.add(user);

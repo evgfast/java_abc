@@ -47,12 +47,11 @@ public class ApplicationManager {
         wd.quit();
     }
 
-
-    public NavigationHelper getNavigationHelper() {
+    public NavigationHelper goTo() {
         return navigationHelper;
     }
 
-    public AddressBookEntryHelper getAddressBookEntryHelper() {
+    public AddressBookEntryHelper contact() {
         return addressBookEntryHelper;
     }
 
@@ -60,7 +59,7 @@ public class ApplicationManager {
         return sessionHelper;
     }
 
-    public GroupHelper getGroupHelper() {
+    public GroupHelper group() {
         return groupHelper;
     }
 

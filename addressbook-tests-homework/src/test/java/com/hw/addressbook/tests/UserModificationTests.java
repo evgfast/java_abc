@@ -6,7 +6,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -16,20 +15,20 @@ public class UserModificationTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions(){
-        app.getNavigationHelper().gotoToHomePage();
-        if (! app.getAddressBookEntryHelper().isThereAContact()) {
+        app.goTo().homePage();
+        if (app.contact().list().size() == 0) {
             AddressBookEntry user = new AddressBookEntry(
                     "Evgen", "Oleg", "Shestopalov",
                     "evg", "Inc", "Saratov 64", "555555",
                     "898783245", "6666", "evg@gmail.com",
                     "gt_group_name"
             );
-            app.getAddressBookEntryHelper().createContact(user);
+            app.contact().create(user);
         }
     }
     @Test(enabled = true)
     public void testsUserModification(){
-        List<AddressBookEntry> before = app.getAddressBookEntryHelper().getContactList();
+        List<AddressBookEntry> before = app.contact().list();
         int index = before.size() - 1;
         AddressBookEntry user_mod = new AddressBookEntry(
                 before.get(index).getId(),
@@ -38,8 +37,8 @@ public class UserModificationTests extends TestBase {
                 "00000000", "99999999", "evgmodification@gmail.ru",
                 null
         );
-        app.getAddressBookEntryHelper().modifyContact(index, user_mod);
-        List<AddressBookEntry> after = app.getAddressBookEntryHelper().getContactList();
+        app.contact().modify(index, user_mod);
+        List<AddressBookEntry> after = app.contact().list();
 
         Assert.assertEquals(after.size(), before.size());
 

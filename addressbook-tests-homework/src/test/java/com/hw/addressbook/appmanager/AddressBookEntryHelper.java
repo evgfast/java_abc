@@ -74,7 +74,7 @@ public class AddressBookEntryHelper extends HelperBase{
         click(By.linkText("home"));
     }
 
-    public void createContact(AddressBookEntry contact) {
+    public void create(AddressBookEntry contact) {
         initAddressBookEntryCreation();
         fillAddressBookEntryForm(contact, true);
         submitAddressBookEntryForm();
@@ -93,7 +93,7 @@ public class AddressBookEntryHelper extends HelperBase{
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
-    public List<AddressBookEntry> getContactList() {
+    public List<AddressBookEntry> list() {
         List<AddressBookEntry> contacts = new ArrayList<AddressBookEntry>();
         List<WebElement> elements = wd.findElements(By.cssSelector("tr[class]"));
         for(WebElement element : elements){
@@ -106,10 +106,16 @@ public class AddressBookEntryHelper extends HelperBase{
         return contacts;
     }
 
-    public void modifyContact(int index, AddressBookEntry user_mod) {
+    public void modify(int index, AddressBookEntry user_mod) {
         initFirstUserModification(index);
         fillAddressBookEntryForm(user_mod, false);
         updateUser();
+        backHomePage();
+    }
+
+    public void delete(int index) {
+        selectContact(index);
+        initUserDeletion();
         backHomePage();
     }
 

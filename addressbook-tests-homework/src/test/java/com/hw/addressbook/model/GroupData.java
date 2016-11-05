@@ -1,24 +1,45 @@
 package com.hw.addressbook.model;
 
 public class GroupData {
-    private int id;
-    private final String name;
-    private final String header;
-    private final String comment;
+    private int id = Integer.MAX_VALUE;
+    private String name;
+    private String header;
+    private String comment;
 
-
-    public GroupData(String name, String header, String comment) {
-        this.name = name;
-        this.header = header;
-        this.comment = comment;
-        this.id = Integer.MAX_VALUE;
+    public String getName() {
+        return name;
     }
 
-    public GroupData(int id, String name, String header, String comment) {
-        this.name = name;
-        this.header = header;
-        this.comment = comment;
+    public String getHeader() {
+        return header;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public GroupData withId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public GroupData withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public GroupData withHeader(String header) {
+        this.header = header;
+        return this;
+    }
+
+    public GroupData withComment(String comment) {
+        this.comment = comment;
+        return this;
     }
 
     @Override
@@ -45,23 +66,5 @@ public class GroupData {
         return name != null ? name.hashCode() : 0;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public String getHeader() {
-        return header;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

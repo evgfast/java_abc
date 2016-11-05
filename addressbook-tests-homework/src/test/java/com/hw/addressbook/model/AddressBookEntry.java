@@ -2,18 +2,18 @@ package com.hw.addressbook.model;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class  AddressBookEntry {
+public class AddressBookEntry {
     private int id;
-    private final String firstname;
-    private final String middlename;
-    private final String lastname;
-    private final String nickname;
-    private final String company;
-    private final String address;
-    private final String phoneHome;
-    private final String mobile;
-    private final String phoneWork;
-    private final String email;
+    private String firstname;
+    private String middlename;
+    private String lastname;
+    private String nickname;
+    private String company;
+    private String address;
+    private String phoneHome;
+    private String mobile;
+    private String phoneWork;
+    private String email;
     private String group;
 
     public AddressBookEntry(int id, String firstname, String lastname){
