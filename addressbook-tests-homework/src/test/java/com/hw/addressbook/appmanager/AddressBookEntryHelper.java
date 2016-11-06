@@ -2,15 +2,15 @@ package com.hw.addressbook.appmanager;
 
 import com.hw.addressbook.model.AddressBookEntry;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-import java.util.ArrayList;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by evg on 18.09.16.
@@ -52,9 +52,7 @@ public class AddressBookEntryHelper extends HelperBase{
         click(By.linkText("add new"));
     }
 
-    public void selectFirstUser(){
-        clickCheckbox(By.xpath("//tr[@name][1]//input"));
-    }
+
 
     public void initUserDeletion(){
         click(By.xpath("//input[@value=\"Delete\"]"));
@@ -62,9 +60,9 @@ public class AddressBookEntryHelper extends HelperBase{
     }
 
     public void initFirstUserModification(int index){
-//        click(By.xpath("//tr[@name][1]//img[@alt=\"Edit\"]"));
-        wd.findElements(By.xpath("//img[@alt=\"Edit\"]")).get(index).click();
+        wd.findElement(By.xpath("//tr[@name=\"entry\"][1]//img[@alt=\"Edit\"]")).click();
     }
+
 
     public void updateUser(){
         click(By.xpath("//input[@value=\"Update\"][1]"));
@@ -89,12 +87,15 @@ public class AddressBookEntryHelper extends HelperBase{
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public void selectContact(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
+    private void selectContactEditById(int id) {
+        wd.findElement(By.cssSelector("a[href='edit.php?id=" + id +"']")).click();
+    }
+    private void selectContactCheckBoxById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id +"']")).click();
     }
 
-    public List<AddressBookEntry> list() {
-        List<AddressBookEntry> contacts = new ArrayList<AddressBookEntry>();
+    public Set<AddressBookEntry> all() {
+        Set<AddressBookEntry> contacts = new HashSet<>();
         List<WebElement> elements = wd.findElements(By.cssSelector("tr[class]"));
         for(WebElement element : elements){
             String last_name = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
@@ -107,18 +108,20 @@ public class AddressBookEntryHelper extends HelperBase{
         }
         return contacts;
     }
-
-    public void modify(int index, AddressBookEntry user_mod) {
-        initFirstUserModification(index);
+    public void modify(AddressBookEntry user_mod) {
+        selectContactEditById(user_mod.getId());
         fillAddressBookEntryForm(user_mod, false);
         updateUser();
         backHomePage();
     }
 
-    public void delete(int index) {
-        selectContact(index);
+
+
+    public void delete(AddressBookEntry contact) {
+        selectContactCheckBoxById(contact.getId());
         initUserDeletion();
         backHomePage();
     }
+
 
 }

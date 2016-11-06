@@ -5,8 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by evg on 19.09.16.
@@ -16,7 +15,7 @@ public class UserModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions(){
         app.goTo().homePage();
-        if (app.contact().list().size() == 0) {
+        if (app.contact().all().size() == 0) {
             AddressBookEntry user = new AddressBookEntry().withFirstname("Evgen")
                     .withMiddlename("Oleg")
                     .withLastname("Shestopalov")
@@ -32,9 +31,9 @@ public class UserModificationTests extends TestBase {
     }
     @Test(enabled = true)
     public void testsUserModification(){
-        List<AddressBookEntry> before = app.contact().list();
-        int index = before.size() - 1;
-        AddressBookEntry user_mod = new AddressBookEntry().withId(before.get(index).getId())
+        Set<AddressBookEntry> before = app.contact().all();
+        AddressBookEntry modifyContact = before.iterator().next();
+        AddressBookEntry user_mod = new AddressBookEntry().withId(modifyContact.getId())
                 .withFirstname("Name_modification")
                 .withMiddlename("Olegovich_modification")
                 .withLastname("Shestopalov_modification")
@@ -45,18 +44,13 @@ public class UserModificationTests extends TestBase {
                 .withPhoneWork("998877787")
                 .withEmail("evgmodification@gmail.ru")
                 .withGroup("gt_group_name");
-        app.contact().modify(index, user_mod);
-        List<AddressBookEntry> after = app.contact().list();
+        app.contact().modify(user_mod);
+        Set<AddressBookEntry> after = app.contact().all();
 
         Assert.assertEquals(after.size(), before.size());
 
-        before.remove(index);
+        before.remove(modifyContact);
         before.add(user_mod);
-
-        Comparator<? super AddressBookEntry> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
-
         Assert.assertEquals(before, after);
     }
 

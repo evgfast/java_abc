@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.List;
+import java.util.Set;
 
 public class UserDeletionTests extends TestBase {
 
@@ -23,19 +23,22 @@ public class UserDeletionTests extends TestBase {
                 .withPhoneWork("9878342543")
                 .withEmail("evg@gmail.com")
                 .withGroup("gt_group_name");
-        if (app.contact().list().size() == 0){
+        if (app.contact().all().size() == 0){
             app.contact().create(user);
         }
     }
 
     @Test(enabled = true)
     public void testsUserDeletion() {
-        List<AddressBookEntry> before = app.contact().list();
-        int index = before.size() - 1;
-        app.contact().delete(index);
-        List<AddressBookEntry> after = app.contact().list();
-        Assert.assertEquals(after.size(), index);
-        before.remove(index);
+        Set<AddressBookEntry> before = app.contact().all();
+        AddressBookEntry delContact = before.iterator().next();
+
+        app.contact().delete(delContact);
+        Set<AddressBookEntry> after = app.contact().all();
+
+        Assert.assertEquals(after.size(), before.size() - 1);
+
+        before.remove(delContact);
         Assert.assertEquals(before, after);
     }
 

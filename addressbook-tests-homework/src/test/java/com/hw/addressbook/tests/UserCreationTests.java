@@ -5,13 +5,13 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 public class UserCreationTests extends TestBase {
     @Test(enabled = true)
     public void testsUserCreation() {
         app.goTo().homePage();
-        List<AddressBookEntry> before = app.contact().list();
+        Set<AddressBookEntry> before = app.contact().all();
         AddressBookEntry user = new AddressBookEntry().withFirstname("Evgeniy")
                 .withMiddlename("Olegovich")
                 .withLastname("Shestopalov")
@@ -23,11 +23,13 @@ public class UserCreationTests extends TestBase {
                 .withEmail("evg@gmail.com")
                 .withGroup("gt_group_name");
         app.contact().create(user);
-        List<AddressBookEntry> after = app.contact().list();
+        Set<AddressBookEntry> after = app.contact().all();
         Assert.assertEquals(after.size(), before.size() +1);
-        int max = after.stream().max( ((o1, o2) -> Integer.compare(o1.getId(), o2.getId()))).get().getId();
+
+//        int max = after.stream().max( ((o1, o2) -> Integer.compare(o1.getId(), o2.getId()))).get().getId();
+        user.withId(after.stream().mapToInt( (g) -> g.getId() ).max().getAsInt());
         before.add(user);
-        user.withId(max);
+//        user.withId(max);
         Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
     }
 }
