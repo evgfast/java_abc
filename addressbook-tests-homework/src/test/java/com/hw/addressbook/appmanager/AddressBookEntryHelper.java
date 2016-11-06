@@ -1,6 +1,7 @@
 package com.hw.addressbook.appmanager;
 
 import com.hw.addressbook.model.AddressBookEntry;
+import com.hw.addressbook.model.Contacts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -94,8 +95,8 @@ public class AddressBookEntryHelper extends HelperBase{
         wd.findElement(By.cssSelector("input[value='" + id +"']")).click();
     }
 
-    public Set<AddressBookEntry> all() {
-        Set<AddressBookEntry> contacts = new HashSet<>();
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.cssSelector("tr[class]"));
         for(WebElement element : elements){
             String last_name = element.findElement(By.cssSelector("td:nth-child(2)")).getText();

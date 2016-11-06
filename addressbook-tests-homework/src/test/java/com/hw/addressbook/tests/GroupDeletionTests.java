@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
@@ -29,12 +30,11 @@ public class GroupDeletionTests extends TestBase {
     public void testsUserDeletion() {
         Groups before = app.group().all();
         GroupData delGroup = before.iterator().next();
-
         app.group().delete(delGroup);
         Groups after = app.group().all();
-
-        assertEquals(after.size(), before.size() -1 );
-        assertThat(after.size(), CoreMatchers.equalTo(before.withOut(delGroup)));
+        //before.remove(delGroup);
+        assertEquals(after.size(), before.size() - 1 );
+        assertThat(after, equalTo(before.withOut(delGroup)));
     }
 
 

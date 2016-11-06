@@ -1,17 +1,16 @@
 package com.hw.addressbook.tests;
 
 import com.hw.addressbook.model.AddressBookEntry;
-import org.testng.Assert;
+import com.hw.addressbook.model.Contacts;
 import org.testng.annotations.Test;
-
-import java.util.HashSet;
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.*;
 
 public class UserCreationTests extends TestBase {
     @Test(enabled = true)
     public void testsUserCreation() {
         app.goTo().homePage();
-        Set<AddressBookEntry> before = app.contact().all();
+        Contacts before = app.contact().all();
         AddressBookEntry user = new AddressBookEntry().withFirstname("Evgeniy")
                 .withMiddlename("Olegovich")
                 .withLastname("Shestopalov")
@@ -23,13 +22,10 @@ public class UserCreationTests extends TestBase {
                 .withEmail("evg@gmail.com")
                 .withGroup("gt_group_name");
         app.contact().create(user);
-        Set<AddressBookEntry> after = app.contact().all();
-        Assert.assertEquals(after.size(), before.size() +1);
-
-//        int max = after.stream().max( ((o1, o2) -> Integer.compare(o1.getId(), o2.getId()))).get().getId();
-        user.withId(after.stream().mapToInt( (g) -> g.getId() ).max().getAsInt());
-        before.add(user);
-//        user.withId(max);
-        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+        Contacts after = app.contact().all();
+        assertThat(after.size(), equalTo(before.size() + 1));
+        assertThat(after, equalTo(
+                before.withAdded( user.withId(after.stream().mapToInt( (g) -> g.getId() ).max().getAsInt()) ))
+        );
     }
 }

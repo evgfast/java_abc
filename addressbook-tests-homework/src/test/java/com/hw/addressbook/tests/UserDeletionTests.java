@@ -1,11 +1,17 @@
 package com.hw.addressbook.tests;
 
 import com.hw.addressbook.model.AddressBookEntry;
+import com.hw.addressbook.model.Contacts;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Set;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class UserDeletionTests extends TestBase {
 
@@ -30,16 +36,12 @@ public class UserDeletionTests extends TestBase {
 
     @Test(enabled = true)
     public void testsUserDeletion() {
-        Set<AddressBookEntry> before = app.contact().all();
+        Contacts before = app.contact().all();
         AddressBookEntry delContact = before.iterator().next();
-
         app.contact().delete(delContact);
-        Set<AddressBookEntry> after = app.contact().all();
-
-        Assert.assertEquals(after.size(), before.size() - 1);
-
-        before.remove(delContact);
-        Assert.assertEquals(before, after);
+        Contacts after = app.contact().all();
+        assertEquals(after.size(), before.size() - 1);
+        assertThat(after, CoreMatchers.equalTo(before.withOut(delContact)));
     }
 
 

@@ -1,11 +1,18 @@
 package com.hw.addressbook.tests;
 
 import com.hw.addressbook.model.AddressBookEntry;
+import com.hw.addressbook.model.Contacts;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by evg on 19.09.16.
@@ -31,7 +38,7 @@ public class UserModificationTests extends TestBase {
     }
     @Test(enabled = true)
     public void testsUserModification(){
-        Set<AddressBookEntry> before = app.contact().all();
+        Contacts before = app.contact().all();
         AddressBookEntry modifyContact = before.iterator().next();
         AddressBookEntry user_mod = new AddressBookEntry().withId(modifyContact.getId())
                 .withFirstname("Name_modification")
@@ -45,13 +52,9 @@ public class UserModificationTests extends TestBase {
                 .withEmail("evgmodification@gmail.ru")
                 .withGroup("gt_group_name");
         app.contact().modify(user_mod);
-        Set<AddressBookEntry> after = app.contact().all();
-
-        Assert.assertEquals(after.size(), before.size());
-
-        before.remove(modifyContact);
-        before.add(user_mod);
-        Assert.assertEquals(before, after);
+        Contacts after = app.contact().all();
+        assertEquals(after.size(), before.size());
+        assertThat(after, equalTo(before.withOut(modifyContact).withAdded(user_mod)));
     }
 
 }
