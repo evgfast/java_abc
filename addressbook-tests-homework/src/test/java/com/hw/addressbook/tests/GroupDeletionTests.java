@@ -1,10 +1,16 @@
 package com.hw.addressbook.tests;
 
 import com.hw.addressbook.model.GroupData;
+import com.hw.addressbook.model.Groups;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.util.Set;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by evg on 19.09.16.
@@ -21,15 +27,14 @@ public class GroupDeletionTests extends TestBase {
 
     @Test
     public void testsUserDeletion() {
-        Set<GroupData> before = app.group().all();
+        Groups before = app.group().all();
         GroupData delGroup = before.iterator().next();
 
         app.group().delete(delGroup);
-        Set<GroupData> after = app.group().all();
-        int index = before.size() - 1;
-        Assert.assertEquals(after.size(), index);
-        before.remove(delGroup);
-        Assert.assertEquals(before, after);
+        Groups after = app.group().all();
+
+        assertEquals(after.size(), before.size() -1 );
+        assertThat(after.size(), CoreMatchers.equalTo(before.withOut(delGroup)));
     }
 
 
