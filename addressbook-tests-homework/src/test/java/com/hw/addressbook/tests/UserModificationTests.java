@@ -17,12 +17,16 @@ public class UserModificationTests extends TestBase {
     public void ensurePreconditions(){
         app.goTo().homePage();
         if (app.contact().list().size() == 0) {
-            AddressBookEntry user = new AddressBookEntry(
-                    "Evgen", "Oleg", "Shestopalov",
-                    "evg", "Inc", "Saratov 64", "555555",
-                    "898783245", "6666", "evg@gmail.com",
-                    "gt_group_name"
-            );
+            AddressBookEntry user = new AddressBookEntry().withFirstname("Evgen")
+                    .withMiddlename("Oleg")
+                    .withLastname("Shestopalov")
+                    .withNickname("evg")
+                    .withCompany("Inc")
+                    .withAddress("Saratov 64")
+                    .withPhoneHome("5555555")
+                    .withPhoneWork("9878342543")
+                    .withEmail("evg@gmail.com")
+                    .withGroup("gt_group_name");
             app.contact().create(user);
         }
     }
@@ -30,13 +34,17 @@ public class UserModificationTests extends TestBase {
     public void testsUserModification(){
         List<AddressBookEntry> before = app.contact().list();
         int index = before.size() - 1;
-        AddressBookEntry user_mod = new AddressBookEntry(
-                before.get(index).getId(),
-                "Name_modification", "Olegovich_modification", "Shestopalov_modification",
-                "evg_modification", "Inc_modification", "Saratov 64_modification", "555555",
-                "00000000", "99999999", "evgmodification@gmail.ru",
-                null
-        );
+        AddressBookEntry user_mod = new AddressBookEntry().withId(before.get(index).getId())
+                .withFirstname("Name_modification")
+                .withMiddlename("Olegovich_modification")
+                .withLastname("Shestopalov_modification")
+                .withNickname("evg_modification")
+                .withCompany("Inc_modification")
+                .withAddress("Saratov 64_modification")
+                .withPhoneHome("00000000")
+                .withPhoneWork("998877787")
+                .withEmail("evgmodification@gmail.ru")
+                .withGroup("gt_group_name");
         app.contact().modify(index, user_mod);
         List<AddressBookEntry> after = app.contact().list();
 

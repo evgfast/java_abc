@@ -1,9 +1,8 @@
 package com.hw.addressbook.model;
 
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class AddressBookEntry {
-    private int id;
+    private int id = Integer.MAX_VALUE;
     private String firstname;
     private String middlename;
     private String lastname;
@@ -16,61 +15,9 @@ public class AddressBookEntry {
     private String email;
     private String group;
 
-    public AddressBookEntry(int id, String firstname, String lastname){
-        this.id = id;
-        this.firstname = firstname;
-        this.middlename = "";
-        this.lastname = lastname;
-        this.nickname = "";
-        this.company = "";
-        this.address = "";
-        this.phoneHome = "";
-        this.mobile = "";
-        this.phoneWork = "";
-        this.email = "";
-        this.group = "";
-    }
-
-    public AddressBookEntry(int id, String firstname, String middlename, String lastname, String nickname, String company,
-                            String address, String phoneHome, String mobile,
-                            String phoneWork, String email, String group) {
-        this.id = id;
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
-        this.nickname = nickname;
-        this.company = company;
-        this.address = address;
-        this.phoneHome = phoneHome;
-        this.mobile = mobile;
-        this.phoneWork = phoneWork;
-        this.email = email;
-        this.group = group;
-    }
-
-    public AddressBookEntry( String firstname, String middlename, String lastname, String nickname, String company,
-                            String address, String phoneHome, String mobile,
-                            String phoneWork, String email, String group) {
-        this.id = Integer.MAX_VALUE;;
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
-        this.nickname = nickname;
-        this.company = company;
-        this.address = address;
-        this.phoneHome = phoneHome;
-        this.mobile = mobile;
-        this.phoneWork = phoneWork;
-        this.email = email;
-        this.group = group;
-    }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstname() {
@@ -117,8 +64,64 @@ public class AddressBookEntry {
         return group;
     }
 
-    public void setGroup(String group) {
+    public AddressBookEntry withGroup(String group) {
         this.group = group;
+        return this;
+    }
+
+    public AddressBookEntry withId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public AddressBookEntry withFirstname(String firstname) {
+        this.firstname = firstname;
+        return this;
+    }
+
+    public AddressBookEntry withMiddlename(String middlename) {
+        this.middlename = middlename;
+        return this;
+    }
+
+    public AddressBookEntry withLastname(String lastname) {
+        this.lastname = lastname;
+        return this;
+    }
+
+    public AddressBookEntry withNickname(String nickname) {
+        this.nickname = nickname;
+        return this;
+    }
+
+    public AddressBookEntry withCompany(String company) {
+        this.company = company;
+        return this;
+    }
+
+    public AddressBookEntry withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public AddressBookEntry withPhoneHome(String phoneHome) {
+        this.phoneHome = phoneHome;
+        return this;
+    }
+
+    public AddressBookEntry withMobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+
+    public AddressBookEntry withPhoneWork(String phoneWork) {
+        this.phoneWork = phoneWork;
+        return this;
+    }
+
+    public AddressBookEntry withEmail(String email) {
+        this.email = email;
+        return this;
     }
 
     @Override

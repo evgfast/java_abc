@@ -12,19 +12,22 @@ public class UserCreationTests extends TestBase {
     public void testsUserCreation() {
         app.goTo().homePage();
         List<AddressBookEntry> before = app.contact().list();
-        AddressBookEntry user = new AddressBookEntry(
-                before.get(before.size() - 1).getId(),
-                "Evgeniy", "Olegovich", "Shestopalov",
-                "evg", "Inc", "Saratov 64", "555555",
-                "898783245", "6666", "evg@gmail.com",
-                "gt_group_name"
-        );
+        AddressBookEntry user = new AddressBookEntry().withFirstname("Evgeniy")
+                .withMiddlename("Olegovich")
+                .withLastname("Shestopalov")
+                .withNickname("evg")
+                .withCompany("Inc")
+                .withAddress("Saratov 64")
+                .withPhoneHome("3443535")
+                .withPhoneWork("9878342543")
+                .withEmail("evg@gmail.com")
+                .withGroup("gt_group_name");
         app.contact().create(user);
         List<AddressBookEntry> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size() +1);
         int max = after.stream().max( ((o1, o2) -> Integer.compare(o1.getId(), o2.getId()))).get().getId();
         before.add(user);
-        user.setId(max);
+        user.withId(max);
         Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
     }
 }
