@@ -7,17 +7,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 /**
  * Created by evg on 18.09.16.
  */
 public class AddressBookEntryHelper extends HelperBase{
-
+    private Contacts contactsCache = null;
     public AddressBookEntryHelper(WebDriver wd) {
         super(wd);
     }
@@ -53,8 +50,6 @@ public class AddressBookEntryHelper extends HelperBase{
         click(By.linkText("add new"));
     }
 
-
-
     public void initUserDeletion(){
         click(By.xpath("//input[@value=\"Delete\"]"));
         wd.switchTo().alert().accept();
@@ -63,7 +58,6 @@ public class AddressBookEntryHelper extends HelperBase{
     public void initFirstUserModification(int index){
         wd.findElement(By.xpath("//tr[@name=\"entry\"][1]//img[@alt=\"Edit\"]")).click();
     }
-
 
     public void updateUser(){
         click(By.xpath("//input[@value=\"Update\"][1]"));
@@ -77,6 +71,7 @@ public class AddressBookEntryHelper extends HelperBase{
         initAddressBookEntryCreation();
         fillAddressBookEntryForm(contact, true);
         submitAddressBookEntryForm();
+        contactsCache = null;
         backHomePage();
     }
 
@@ -96,23 +91,27 @@ public class AddressBookEntryHelper extends HelperBase{
     }
 
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if(contactsCache != null){
+            return new Contacts(contactsCache);
+        }
+        contactsCache = new Contacts();
         List<WebElement> elements = wd.findElements(By.cssSelector("tr[class]"));
         for(WebElement element : elements){
             String last_name = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
             String first_name = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
             int id = Integer.parseInt(element.findElement(By.cssSelector("td:nth-child(1) input")).getAttribute("value"));
-            contacts.add(new AddressBookEntry().withId(id)
+            contactsCache.add(new AddressBookEntry().withId(id)
                     .withFirstname(first_name)
                     .withLastname(last_name)
             );
         }
-        return contacts;
+        return new Contacts(contactsCache);
     }
     public void modify(AddressBookEntry user_mod) {
         selectContactEditById(user_mod.getId());
         fillAddressBookEntryForm(user_mod, false);
         updateUser();
+        contactsCache = null;
         backHomePage();
     }
 
@@ -121,6 +120,7 @@ public class AddressBookEntryHelper extends HelperBase{
     public void delete(AddressBookEntry contact) {
         selectContactCheckBoxById(contact.getId());
         initUserDeletion();
+        contactsCache = null;
         backHomePage();
     }
 
