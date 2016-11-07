@@ -52,8 +52,8 @@ public class UserModificationTests extends TestBase {
                 .withEmail("evgmodification@gmail.ru")
                 .withGroup("gt_group_name");
         app.contact().modify(user_mod);
+        assertThat(app.contact().count(), equalTo(before.size()));
         Contacts after = app.contact().all();
-        assertEquals(after.size(), before.size());
         assertThat(after, equalTo(before.withOut(modifyContact).withAdded(user_mod)));
     }
 

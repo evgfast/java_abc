@@ -22,10 +22,30 @@ public class UserCreationTests extends TestBase {
                 .withEmail("evg@gmail.com")
                 .withGroup("gt_group_name");
         app.contact().create(user);
+        assertThat(app.contact().count(), equalTo(before.size() + 1));
         Contacts after = app.contact().all();
-        assertThat(after.size(), equalTo(before.size() + 1));
         assertThat(after, equalTo(
                 before.withAdded( user.withId(after.stream().mapToInt( (g) -> g.getId() ).max().getAsInt()) ))
         );
+    }
+
+    @Test(enabled = true)
+    public void testsBadUserCreation() {
+        app.goTo().homePage();
+        Contacts before = app.contact().all();
+        AddressBookEntry user = new AddressBookEntry().withFirstname("Evgeniy'")
+                .withMiddlename("Olegovich")
+                .withLastname("Shestopalov")
+                .withNickname("evg")
+                .withCompany("Inc")
+                .withAddress("Saratov 64")
+                .withPhoneHome("3443535")
+                .withPhoneWork("9878342543")
+                .withEmail("evg@gmail.com")
+                .withGroup("gt_group_name");
+        app.contact().create(user);
+        assertThat(app.contact().count(), equalTo(before.size()));
+        Contacts after = app.contact().all();
+        assertThat(after, equalTo(before));
     }
 }

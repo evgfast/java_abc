@@ -79,7 +79,7 @@ public class AddressBookEntryHelper extends HelperBase{
         return isElementPresent(By.xpath("//tr[@name][1]//input"));
     }
 
-    public int getContactCount() {
+    public int count() {
         return wd.findElements(By.name("selected[]")).size();
     }
 
