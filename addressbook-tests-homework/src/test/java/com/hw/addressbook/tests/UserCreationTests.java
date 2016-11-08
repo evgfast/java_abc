@@ -17,8 +17,9 @@ public class UserCreationTests extends TestBase {
                 .withNickname("evg")
                 .withCompany("Inc")
                 .withAddress("Saratov 64")
-                .withPhoneHome("3443535")
-                .withPhoneWork("9878342543")
+                .withPhoneHome("222266")
+                .withMobile("88888")
+                .withWorkPhone("99999")
                 .withEmail("evg@gmail.com")
                 .withGroup("gt_group_name");
         app.contact().create(user);
@@ -39,8 +40,9 @@ public class UserCreationTests extends TestBase {
                 .withNickname("evg")
                 .withCompany("Inc")
                 .withAddress("Saratov 64")
-                .withPhoneHome("3443535")
-                .withPhoneWork("9878342543")
+                .withPhoneHome("222266")
+                .withMobile("88888")
+                .withWorkPhone("99999")
                 .withEmail("evg@gmail.com")
                 .withGroup("gt_group_name");
         app.contact().create(user);

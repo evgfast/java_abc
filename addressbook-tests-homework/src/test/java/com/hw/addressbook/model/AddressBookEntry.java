@@ -134,7 +134,7 @@ public class AddressBookEntry {
         return this;
     }
 
-    public AddressBookEntry withPhoneWork(String phoneWork) {
+    public AddressBookEntry withWorkPhone(String phoneWork) {
         this.phoneWork = phoneWork;
         return this;
     }

@@ -2,13 +2,8 @@ package com.hw.addressbook.tests;
 
 import com.hw.addressbook.model.AddressBookEntry;
 import com.hw.addressbook.model.Contacts;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -30,7 +25,7 @@ public class UserModificationTests extends TestBase {
                     .withCompany("Inc")
                     .withAddress("Saratov 64")
                     .withPhoneHome("5555555")
-                    .withPhoneWork("9878342543")
+                    .withWorkPhone("9878342543")
                     .withEmail("evg@gmail.com")
                     .withGroup("gt_group_name");
             app.contact().create(user);
@@ -48,7 +43,7 @@ public class UserModificationTests extends TestBase {
                 .withCompany("Inc_modification")
                 .withAddress("Saratov 64_modification")
                 .withPhoneHome("00000000")
-                .withPhoneWork("998877787")
+                .withWorkPhone("998877787")
                 .withEmail("evgmodification@gmail.ru")
                 .withGroup("gt_group_name");
         app.contact().modify(user_mod);

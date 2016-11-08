@@ -99,10 +99,15 @@ public class AddressBookEntryHelper extends HelperBase{
         for(WebElement element : elements){
             String last_name = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
             String first_name = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
+            String allPhones = element.findElement(By.cssSelector("td:nth-child(6)")).getText();
+            String[] phones = allPhones.split("\n");
             int id = Integer.parseInt(element.findElement(By.cssSelector("td:nth-child(1) input")).getAttribute("value"));
             contactsCache.add(new AddressBookEntry().withId(id)
                     .withFirstname(first_name)
                     .withLastname(last_name)
+                    .withPhoneHome(phones[0])
+                    .withMobile(phones[1])
+                    .withWorkPhone(phones[2])
             );
         }
         return new Contacts(contactsCache);
@@ -122,6 +127,19 @@ public class AddressBookEntryHelper extends HelperBase{
         initUserDeletion();
         contactsCache = null;
         backHomePage();
+    }
+
+
+    public AddressBookEntry infoFromEditForm(AddressBookEntry contact) {
+        selectContactEditById(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        wd.navigate().back();
+        return new AddressBookEntry().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
+                .withPhoneHome(home).withMobile(mobile).withWorkPhone(work);
     }
 
 
