@@ -9,11 +9,55 @@ public class AddressBookEntry {
     private String nickname;
     private String company;
     private String address;
+    private String addressSecond;
     private String phoneHome;
     private String mobile;
     private String phoneWork;
     private String email;
+    private String email2;
+    private String email3;
     private String group;
+    private String allPhones;
+    private String allEmails;
+    private String allPostAddress;
+
+    public String getAddressSecond() {
+        return addressSecond;
+    }
+
+    public AddressBookEntry withAddressSecond(String addressSecond) {
+        this.addressSecond = addressSecond;
+        return this;
+    }
+
+    public String getAllPostAddress() {
+        return allPostAddress;
+    }
+
+    public AddressBookEntry withAllPostAddress(String allPostAddress) {
+        this.allPostAddress = allPostAddress;
+        return this;
+    }
+
+    public AddressBookEntry withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+
+    public AddressBookEntry withEmail3(String email3) {
+        this.email3 = email3;
+        return this;
+    }
+
+    public AddressBookEntry withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+        return this;
+    }
+
+    public AddressBookEntry withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -34,6 +78,22 @@ public class AddressBookEntry {
         result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         return result;
+    }
+
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public String getEmail3() {
+        return email3;
+    }
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
     }
 
     public int getId() {
@@ -152,5 +212,6 @@ public class AddressBookEntry {
                 ", lastname='" + lastname + '\'' +
                 '}';
     }
+
 
 }

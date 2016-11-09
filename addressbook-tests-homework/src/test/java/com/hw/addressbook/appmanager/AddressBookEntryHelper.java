@@ -86,6 +86,7 @@ public class AddressBookEntryHelper extends HelperBase{
     private void selectContactEditById(int id) {
         wd.findElement(By.cssSelector("a[href='edit.php?id=" + id +"']")).click();
     }
+
     private void selectContactCheckBoxById(int id) {
         wd.findElement(By.cssSelector("input[value='" + id +"']")).click();
     }
@@ -99,19 +100,21 @@ public class AddressBookEntryHelper extends HelperBase{
         for(WebElement element : elements){
             String last_name = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
             String first_name = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
+            String address = element.findElement(By.cssSelector("td:nth-child(4)")).getText();
+            String allEmails = element.findElement(By.cssSelector("td:nth-child(5)")).getText();
             String allPhones = element.findElement(By.cssSelector("td:nth-child(6)")).getText();
-            String[] phones = allPhones.split("\n");
             int id = Integer.parseInt(element.findElement(By.cssSelector("td:nth-child(1) input")).getAttribute("value"));
             contactsCache.add(new AddressBookEntry().withId(id)
                     .withFirstname(first_name)
                     .withLastname(last_name)
-                    .withPhoneHome(phones[0])
-                    .withMobile(phones[1])
-                    .withWorkPhone(phones[2])
+                    .withAllPhones(allPhones)
+                    .withAllEmails(allEmails)
+                    .withAllPostAddress(address)
             );
         }
         return new Contacts(contactsCache);
     }
+
     public void modify(AddressBookEntry user_mod) {
         selectContactEditById(user_mod.getId());
         fillAddressBookEntryForm(user_mod, false);
@@ -130,16 +133,22 @@ public class AddressBookEntryHelper extends HelperBase{
     }
 
 
-    public AddressBookEntry infoFromEditForm(AddressBookEntry contact) {
+    public  AddressBookEntry infoFromEditForm(AddressBookEntry contact) {
         selectContactEditById(contact.getId());
         String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
         String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
         String home = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getText();
+        String email = wd.findElement(By.name("email")).getAttribute("value");
+        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
         wd.navigate().back();
         return new AddressBookEntry().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
-                .withPhoneHome(home).withMobile(mobile).withWorkPhone(work);
+                .withPhoneHome(home).withMobile(mobile).withWorkPhone(work)
+                .withEmail(email).withEmail2(email2).withEmail3(email3)
+                .withAddress(address);
     }
 
 
