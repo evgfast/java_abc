@@ -20,6 +20,20 @@ public class AddressBookEntry {
     private String allPhones;
     private String allEmails;
     private String allPostAddress;
+    private String allDetails;
+
+    public String getAllDetails() {
+        return allDetails;
+    }
+
+    public AddressBookEntry withAllDetails(String allDetails) {
+        this.allDetails = allDetails;
+        return this;
+    }
+
+
+
+
 
     public String getAddressSecond() {
         return addressSecond;

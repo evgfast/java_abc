@@ -7,7 +7,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.*;
 
 
 /**
@@ -91,6 +95,10 @@ public class AddressBookEntryHelper extends HelperBase{
         wd.findElement(By.cssSelector("input[value='" + id +"']")).click();
     }
 
+    private void selectDetailsById(int id) {
+        wd.findElement(By.cssSelector("a[href='view.php?id=" + id +"']")).click();
+    }
+
     public Contacts all() {
         if(contactsCache != null){
             return new Contacts(contactsCache);
@@ -132,7 +140,6 @@ public class AddressBookEntryHelper extends HelperBase{
         backHomePage();
     }
 
-
     public  AddressBookEntry infoFromEditForm(AddressBookEntry contact) {
         selectContactEditById(contact.getId());
         String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
@@ -151,5 +158,55 @@ public class AddressBookEntryHelper extends HelperBase{
                 .withAddress(address);
     }
 
+    public AddressBookEntry infoFromDetails(AddressBookEntry contact){
+        selectDetailsById(contact.getId());
+        String[] fio = wd.findElement(By.xpath(".//*[@id='content']/b")).getText().split(" ");
+        String firstname = "";
+        String lastname = "";
+        if(fio.length == 3) {
+            firstname = fio[0];
+            lastname = fio[2];
+        }
+        String allDetails = wd.findElement(By.xpath(".//*[@id='content']")).getText();
+        List<WebElement> allEmails = wd.findElements(By.cssSelector("a[href^=\"mailto\"]"));
+        List<String> list_email = new ArrayList<String>();
+        for (WebElement e : allEmails) {
+            list_email.add(e.getText());
+        }
+        if(allEmails.size() == 2){
+            list_email.add("");
+        } else if(allEmails.size() == 1){
+            list_email.add("");
+            list_email.add("");
+        }
+        String mobile = getPhone(allDetails, "M");
+        String work = getPhone(allDetails, "W");
+        String home = getPhone(allDetails, "H");
+        String email = list_email.get(0);
+        String email2 =  list_email.get(1);
+        String email3 = list_email.get(2);
 
+        wd.navigate().back();
+        return new AddressBookEntry().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
+                .withPhoneHome(home).withMobile(mobile).withWorkPhone(work)
+                .withEmail(email).withEmail2(email2).withEmail3(email3);
+    }
+    // txt - this is all text,
+    // typePhone - set symbol H(home) or M(mobile) or W(work)
+    /*
+    H: 222266
+    M: 88888
+    W: 99999
+     */
+    private String getPhone(String txt, String typePhone){
+        String pattern = "(" + typePhone + "):\\s\\d+";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(txt);
+        try {
+            m.find();
+            return txt.substring(m.start() + 3, m.end());
+        }catch (IllegalStateException i){
+            return "";
+        }
+    }
 }

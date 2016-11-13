@@ -23,6 +23,17 @@ public class ContactVisibleTests extends TestBase {
         assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAllPostAddress()));
     }
 
+    @Test
+    public void testDetailsVisible() {
+        app.goTo().homePage();
+        AddressBookEntry contact = app.contact().all().iterator().next();
+        AddressBookEntry contactInfoFromDetailsForm = app.contact().infoFromDetails(contact);
+        assertThat(contact.getFirstname(), equalTo(contactInfoFromDetailsForm.getFirstname()));
+        assertThat(contact.getLastname(), equalTo(contactInfoFromDetailsForm.getLastname()));
+        assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromDetailsForm)));
+        assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromDetailsForm)));
+    }
+
     private String mergePhones(AddressBookEntry contact) {
         return Arrays.asList(contact.getPhoneHome(), contact.getMobile(), contact.getPhoneWork())
                 .stream().filter( (s) -> ! s.equals(""))
