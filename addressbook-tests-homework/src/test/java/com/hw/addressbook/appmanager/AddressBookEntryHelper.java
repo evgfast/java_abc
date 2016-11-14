@@ -35,13 +35,14 @@ public class AddressBookEntryHelper extends HelperBase{
         type(By.name("firstname"), addressBookEntry.getFirstname());
         type(By.name("middlename"), addressBookEntry.getMiddlename());
         type(By.name("lastname"), addressBookEntry.getLastname());
-        type(By.name("nickname"), addressBookEntry.getNickname());
-        type(By.name("company"), addressBookEntry.getCompany());
+//        type(By.name("nickname"), addressBookEntry.getNickname());
+//        type(By.name("company"), addressBookEntry.getCompany());
         type(By.name("address"), addressBookEntry.getAddress());
         type(By.name("home"), addressBookEntry.getPhoneHome());
         type(By.name("mobile"), addressBookEntry.getMobile());
         type(By.name("work"), addressBookEntry.getPhoneWork());
         type(By.name("email"), addressBookEntry.getEmail());
+        attach(By.name("photo"), addressBookEntry.getPhoto() );
 
         if(creation){
             new Select(wd.findElement(By.name("new_group"))).selectByIndex(1);

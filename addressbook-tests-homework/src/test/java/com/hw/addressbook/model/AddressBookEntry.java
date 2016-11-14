@@ -1,6 +1,8 @@
 package com.hw.addressbook.model;
 
 
+import java.io.File;
+
 public class AddressBookEntry {
     private int id = Integer.MAX_VALUE;
     private String firstname;
@@ -9,7 +11,6 @@ public class AddressBookEntry {
     private String nickname;
     private String company;
     private String address;
-    private String addressSecond;
     private String phoneHome;
     private String mobile;
     private String phoneWork;
@@ -20,27 +21,14 @@ public class AddressBookEntry {
     private String allPhones;
     private String allEmails;
     private String allPostAddress;
-    private String allDetails;
+    private File photo;
 
-    public String getAllDetails() {
-        return allDetails;
+    public File getPhoto() {
+        return photo;
     }
 
-    public AddressBookEntry withAllDetails(String allDetails) {
-        this.allDetails = allDetails;
-        return this;
-    }
-
-
-
-
-
-    public String getAddressSecond() {
-        return addressSecond;
-    }
-
-    public AddressBookEntry withAddressSecond(String addressSecond) {
-        this.addressSecond = addressSecond;
+    public AddressBookEntry withPhoto(File photo) {
+        this.photo = photo;
         return this;
     }
 
@@ -102,6 +90,7 @@ public class AddressBookEntry {
     public String getEmail3() {
         return email3;
     }
+
     public String getAllEmails() {
         return allEmails;
     }
