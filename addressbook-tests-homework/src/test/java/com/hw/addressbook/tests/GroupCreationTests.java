@@ -1,5 +1,7 @@
 package com.hw.addressbook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hw.addressbook.model.GroupData;
 import com.hw.addressbook.model.Groups;
 
@@ -46,7 +48,21 @@ public class GroupCreationTests extends TestBase{
         return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
     }
 
-    @Test(dataProvider = "validXmlGroups")
+    @DataProvider
+    public Iterator<Object[]> validJsonGroups() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.json")) );
+        String json = "";
+        String line = reader.readLine();
+        while (line != null){
+            json += line;
+            line = reader.readLine();
+        }
+        Gson gson = new Gson();
+        List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType());
+        return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+    }
+
+    @Test(dataProvider = "validJsonGroups")
     public void testsGroupCreation(GroupData group) {
         app.goTo().groupPage();
         Groups before = app.group().all();

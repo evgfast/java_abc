@@ -3,6 +3,8 @@ package com.hw.addressbook.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.hw.addressbook.model.GroupData;
 import com.thoughtworks.xstream.XStream;
 
@@ -33,7 +35,6 @@ public class GroupDataGenerator {
             jCommander.usage();
             return;
         }
-
         generator.run();
     }
 
@@ -43,7 +44,10 @@ public class GroupDataGenerator {
             saveAsCav(groups, new File(file));
         }else if( format.equals("xml") ){
             saveAsXml(groups, new File(file));
-        } else {
+        }else if( format.equals("json") ) {
+            saveAsJson(groups, new File(file));
+        }
+        else {
             System.out.println("unregnized format " + format);
         }
     }
@@ -64,6 +68,18 @@ public class GroupDataGenerator {
         for(GroupData group : groups){
             writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getComment()));
         }
+        writer.close();
+    }
+
+    private void saveAsJson(List<GroupData> groups, File file) throws IOException {
+//      Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
+        String json = gson.toJson(groups);
+        Writer writer = new FileWriter(file);
+        writer.write(json);
         writer.close();
     }
 
